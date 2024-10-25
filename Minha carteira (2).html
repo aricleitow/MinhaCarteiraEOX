@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Carteira EOX</title>
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #E0E0E0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 85%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #A0A0A0;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        th, td {
+            border: 1px solid #A0A0A0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #3A3A3A;
+            color: #E0E0E0;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #2C2C2C;
+        }
+        tr:nth-child(odd) {
+            background-color: #252525;
+        }
+        td {
+            color: #B0BEC5;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: #3A3A3A;
+            color: #E0E0E0;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #4A4A4A;
+        }
+        .agenda-input, .task-input {
+            width: 100%;
+            color: #1E1E1E;
+            background-color: #F5F5F5;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #A0A0A0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .agenda-input:focus, .task-input:focus {
+            outline: none;
+            border-color: #707070;
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Minha Carteira EOX</h1>
+
+        <table id="companyTable">
+            <thead>
+                <tr>
+                    <th>Nome da Organização</th>
+                    <th>Cidade</th>
+                    <th>Telefone</th>
+                    <th>Responsável</th>
+                    <th>Próxima Agenda</th>
+                    <th>Contato</th>
+                    <th>Data Churn</th>
+                    <th>Tarefa a Fazer</th>
+                    <th>NPS</th>
+                    <th>Risco de Churn</th>
+                    <th>Atualização Churn</th>
+                    <th>Última Pesquisa NPS</th>
+                    <th>Observações Churn</th>
+                    <th>Resumo Relacionamento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- As empresas serão inseridas aqui via JavaScript -->
+            </tbody>
+        </table>
+
+      
+<div class="button-container">
+            <a href="https://eox2.vocallcontact.com.br/index.php?module=Potentials&view=List&viewname=921" class="btn">Minhas Oportunidades</a>
+            <button onclick="exportToJson()" class="btn">Exportar para JSON</button>
+        </div>
+    </div>
+    <script>
+        const companies = [
+    { name: 'Fábrica de Doces Ledur LTDA', city: 'Bom Princípio', phone: '(51) 3181-0026', contact: 'Aricleitow Marques' },
+    { name: 'FUNDMETAUS – FUNDIDOS E USINADOS LTDA', city: 'Nova Veneza', phone: '(48) 3476-0754', contact: 'Aricleitow Marques' },
+    { name: 'PHN TOOLS COMERCIO DE FERRAMENTAS INDUST...', city: 'Jaú', phone: '(14) 99661-3118', contact: 'Aricleitow Marques' },
+    { name: 'CS Serviço Autorizado LTDA', city: 'São Paulo', phone: '(11) 3983-0277', contact: 'Aricleitow Marques' },
+    { name: 'LULI INDUSTRIA E COMERCIO DE CONFECCOES ...', city: 'Blumenau', phone: '(47) 3221-2344', contact: 'Aricleitow Marques' },
+    { name: 'Bauhand Puxadores De Metais Ltda', city: 'SCHROEDER', phone: '(47) 3305-6252', contact: 'Aricleitow Marques' },
+    { name: 'LUIZA BARCELOS CALCADOS SA', city: 'Belo Horizonte', phone: '(31) 3428-4230', contact: 'Aricleitow Marques' },
+    { name: 'Confeccoes Jo Jo LTDA', city: 'Blumenau', phone: '0800 644 6644', contact: 'Aricleitow Marques' },
+    { name: 'P.A. Industria Textil S/A', city: 'Brusque', phone: '(47) 3044-8250', contact: 'Aricleitow Marques' },
+    { name: 'Americanflex Industrias Reunidas Ltda', city: 'São José do Rio Preto', phone: '(17) 2136-8900', contact: 'Aricleitow Marques' },
+    { name: 'Vollo Brasil Artigos Esportivos LTDA', city: 'Cotia', phone: '(11) 3771-3333', contact: 'Aricleitow Marques' },
+    { name: 'Imbralit Indústria e Comércio de Artefat...', city: 'Criciúma', phone: '(48) 3461-9500', contact: 'Aricleitow Marques' },
+    { name: 'DIAMANTES LINGERIE LTDA', city: 'FRECHEIRINHA', phone: '88-99206-7851', contact: 'Aricleitow Marques' },
+    { name: 'PAN DISTRIBUIDORA LTDA', city: 'Chapecó', phone: '(49) 3321-0800', contact: 'Aricleitow Marques' },
+    { name: 'Missner & Missner Ltda', city: 'Blumenau', phone: '0800 047 0015', contact: 'Aricleitow Marques' },
+    { name: 'Mrb Alimentos Ltda', city: 'Schroeder', phone: '', contact: 'Aricleitow Marques' },
+    { name: 'Têxtil Farbe S.A', city: 'Indaial', phone: '(47) 3036-6211', contact: 'Aricleitow Marques' },
+    { name: 'Roma Dublados Indústria e Comercio de Te...', city: 'São José dos Pinhais', phone: '41 3643 0406', contact: 'Aricleitow Marques' },
+    { name: 'Brida Lubrificantes Ltda', city: 'São Paulo', phone: '(11) 2100-0500', contact: 'Aricleitow Marques' },
+    { name: 'Vk Industria e Comercio de Parafusos LTDA', city: 'Jaraguá do Sul', phone: '(47) 3276-8800', contact: 'Aricleitow Marques' },
+    { name: 'Quick Soft Tecnologia da Informação Ltda', city: 'Blumenau', phone: '47 3036-6500', contact: 'Aricleitow Marques' },
+    { name: 'FERREIRA CONGELADOS EIRELI', city: 'Jaraguá do Sul', phone: '47 3273-8057', contact: 'Aricleitow Marques' },
+    { name: 'Kamylus Malhas Ltda', city: 'Jaraguá do Sul', phone: '(47) 3501-1700', contact: 'Aricleitow Marques' },
+    { name: 'BREMEN IMPORTADORA DE EQUIPAMENTOS PARA ...', city: 'Gravataí', phone: '(51) 3201-0132', contact: 'Aricleitow Marques' },
+    { name: 'Roco Industria Metalplastica LTDA', city: 'Blumenau', phone: '47 3335 - 2012', contact: 'Aricleitow Marques' },
+    { name: 'Porcelanas Industriais Germer S.A', city: 'Timbó', phone: '(47) 3281-0000', contact: 'Aricleitow Marques' },
+    { name: 'Franke Sistemas de Cozinhas do Brasil', city: 'Joinville', phone: '(47) 3431-0500', contact: 'Aricleitow Marques' },
+    { name: 'Renner Sayerlack S/A', city: 'Cajamar', phone: '11 21179060', contact: 'Aricleitow Marques' },
+    { name: 'Moldimplas Industria e Comercial de Plas...', city: 'Blumenau', phone: '47 3337-2809', contact: 'Aricleitow Marques' },
+    { name: 'Lunelli Têxtil Ltda', city: 'Jaraguá do Sul', phone: '(47) 3274-0400', contact: 'Aricleitow Marques' },
+    { name: 'Indústria E Comércio De Confecções La Mo...', city: 'Criciúma', phone: '(48) 3436-6900', contact: 'Aricleitow Marques' },
+    { name: 'Coronel Dulcídio Oftalmologia LTDA', city: 'Curitiba', phone: '(41) 3020-4646', contact: 'Aricleitow Marques' },
+    { name: 'OBJETIVUS MATERIAIS PARA ESCRITÓRIO E IN...', city: 'Joinville', phone: '(47) 3145-6400', contact: 'Aricleitow Marques' },
+    { name: 'Cativa Textil Industria e Comercio LTDA', city: 'Pomerode', phone: '(47) 3387-9999', contact: 'Aricleitow Marques' },
+    { name: 'Unimed Ponta Grossa Cooperativa de Traba...', city: 'Ponta Grossa', phone: '(42) 3220-3900', contact: 'Aricleitow Marques' },
+    { name: 'Lab Rede - Laboratorio de Referencia Em ...', city: 'Belo Horizonte', phone: '(31) 2519-7500', contact: 'Aricleitow Marques' },
+    { name: 'Ripz Industria e Comercio de Papeis - EI...', city: 'Guaratuba', phone: '(41) 3056-0774', contact: 'Aricleitow Marques' },
+    { name: 'Tutti Baby Ind. E Com. De Artigos Infant...', city: 'Massaranduba', phone: '(47) 3379-4200', contact: 'Aricleitow Marques' },
+    { name: 'Schwanke Industrial Ltda', city: 'Blumenau', phone: '(47) 3231-9000', contact: 'Aricleitow Marques' },
+    { name: 'Link Comercial Importadora e Exportadora...', city: 'Pomerode', phone: '(47) 3242-8000', contact: 'Aricleitow Marques' },
+    { name: 'Bograntex Indústria do Vestuário Ltda', city: 'Jaraguá do Sul', phone: '(47) 3275-8600', contact: 'Aricleitow Marques' },
+    { name: 'Conesul Materiais de Escritório Ltda', city: 'Novo Hamburgo', phone: '(51) 3593-3031', contact: 'Aricleitow Marques' },
+    { name: 'Equatorial Representação Comercial LTDA ...', city: 'Curitiba', phone: '(41) 3312-9900', contact: 'Aricleitow Marques' },
+    { name: 'INC – Instituto de Neurologia de Curitib...', city: 'Curitiba', phone: '(41) 3028-8545', contact: 'Aricleitow Marques' },
+    { name: 'Ademicon Administradora de Consórcios S....', city: 'Curitiba', phone: '(41) 3023-2000', contact: 'Aricleitow Marques' }
+];
+
+
+        function renderTable() {
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            companies.forEach((company, index) => {
+                const row = `
+                    <tr>
+                        <td>${company.name}</td>
+                        <td>${company.city}</td>
+                        <td>${company.phone}</td>
+                        <td>${company.contact}</td>
+                        <td><input type="date" id="agenda-${index}" class="agenda-input" /></td>
+                        <td><textarea id="contact-${index}" placeholder="Contato">${company.contact}</textarea></td>
+                        <td><input type="date" id="churn-date-${index}" /></td>
+                        <td><textarea id="task-${index}" placeholder="Tarefa a Fazer"></textarea></td>
+                        <td><textarea id="nps-${index}" placeholder="NPS"></textarea></td>
+                        <td><textarea id="churn-${index}" placeholder="Risco de Churn"></textarea></td>
+                        <td><input type="date" id="churn-update-${index}" /></td>
+                        <td><textarea id="nps-last-${index}" placeholder="Última Pesquisa NPS"></textarea></td>
+                        <td><textarea id="observations-${index}" placeholder="Observações Churn"></textarea></td>
+                        <td><textarea id="summary-${index}" placeholder="Resumo Relacionamento"></textarea></td>
+                        <td><button onclick="saveCompany(${index})" class="btn">Salvar</button></td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML("beforeend", row);
+            });
+        }
+
+        function saveCompany(index) {
+            // Lógica para salvar as alterações feitas nas células da tabela
+            alert(`Informações da empresa ${companies[index].name} salvas!`);
+        }
+
+        renderTable();
+		 function exportToJson() {
+            const data = companies.map((company, index) => ({
+                name: company.name,
+                city: company.city,
+                phone: company.phone,
+                contact: document.getElementById(`contact-${index}`).value,
+                agenda: document.getElementById(`agenda-${index}`).value,
+                churnDate: document.getElementById(`churn-date-${index}`).value,
+                task: document.getElementById(`task-${index}`).value,
+                nps: document.getElementById(`nps-${index}`).value,
+                churnRisk: document.getElementById(`churn-${index}`).value,
+                churnUpdate: document.getElementById(`churn-update-${index}`).value,
+                npsLast: document.getElementById(`nps-last-${index}`).value,
+                observations: document.getElementById(`observations-${index}`).value,
+                summary: document.getElementById(`summary-${index}`).value
+            }));
+
+            const jsonString = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "dados_empresa.json";
+            link.click();
+        }
+    </script>
+</body>
+</html>
